@@ -1,3 +1,5 @@
+origin: https://github.com/managed-commons/SvgNet
+
 # SvgNet
 
 A fork of the SvgNet & SvgGdi bridge (http://www.codeproject.com/KB/cs/svgnet.aspx) to ressurrect it.
