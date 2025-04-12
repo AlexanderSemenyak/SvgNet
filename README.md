@@ -6,9 +6,9 @@ A fork of the SvgNet & SvgGdi bridge (http://www.codeproject.com/KB/cs/svgnet.as
 
 __SvgNet is now available as a Nuget:__ [SvgNet](https://www.nuget.org/packages/SvgNet/).
 
-__Latest version 2.2.2 is .NET Standard 2.0 and 2.1 and also .NET 5.0/6.0 (base and Windows) compatible and works with .NET Core 2.x and 3.x and .NET 5.0/6.0, but now requires .NET Framework 4.6.1 or higher__
+__Latest version 3.5.0 is .NET Standard 2.0 and 2.1 and also .NET 8.0/9.0 (base and Windows) compatible and works with .NET Core 2.x and 3.x and .NET 5.0/6.0/7.0/8.0/9.0, but now requires .NET Framework 4.6.2 or higher__
 
-To build this version properly you need .NET 6.0.100+ SDK installed
+To build this version properly you need .NET 8.0.404+ & 9.0.100 SDKs installed
 
 ## License: BSD
 
@@ -16,7 +16,7 @@ Copyright &copy; 2003 RiskCare Ltd.  All rights reserved.
 
 Copyright &copy; 2010 SvgNet & SvgGdi Bridge Project. All rights reserved.
 
-Copyright &copy; 2015-2022 Rafael Teixeira, Mojmír Němeček, Benjamin Peterson and Other Contributors
+Copyright &copy; 2015-2024 Rafael Teixeira, Mojmír Němeček, Benjamin Peterson and Other Contributors
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions

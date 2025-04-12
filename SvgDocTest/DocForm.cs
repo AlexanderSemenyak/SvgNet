@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+
 using SvgNet;
-using SvgNet.SvgElements;
-using SvgNet.SvgTypes;
+using SvgNet.Elements;
+using SvgNet.Types;
 
 namespace SvgDocTest {
     public partial class DocForm : Form {
@@ -11,17 +12,11 @@ namespace SvgDocTest {
 
         private static readonly string _tempFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "foo.svg");
 
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main() => Application.Run(new DocForm());
-
-        private static void RefreshBrowserFrom(WebBrowser browser, string filename) {
-            browser.Navigate(new Uri(filename));
-            browser.Refresh(WebBrowserRefreshOption.Completely);
-        }
 
         private void Button1_Click(object sender, EventArgs e) {
             using (var dlg = new OpenFileDialog {
@@ -43,7 +38,7 @@ namespace SvgDocTest {
 
             //adding multiple children
 
-            root.AddChildren(
+            _ = root.AddChildren(
                 new SvgRectElement(5, 5, 5, 5),
                 new SvgEllipseElement(20, 20, 8, 12) {
                     Style = "fill:yellow;stroke:red"
@@ -79,7 +74,7 @@ namespace SvgDocTest {
 
             //cloning and style arithmetic
 
-            grp.AddChildren(ell, pathy);
+            _ = grp.AddChildren(ell, pathy);
 
             grp.Style.Set("fill", "blue");
 
@@ -96,18 +91,18 @@ namespace SvgDocTest {
             root.AddChild(grp2);
 
             //output
-
+            SvgFactory.ResetNamespaces();
             string s = root.WriteSVGString(true);
-
+            tbIn.Text = s;
             tbOut.Text = s;
 
             string tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "foo.svg");
 
             using (var tw = new StreamWriter(tempFile, false))
                 tw.Write(s);
-
-            svgOut.Navigate(new Uri(tempFile));
-            svgOut.Refresh(WebBrowserRefreshOption.Completely);
+            panelTop.Text = $"Input: {tempFile}";
+            svgOut.RefreshFrom(tempFile);
+            svgIn.RefreshFrom(tempFile);
         }
 
         private void Button3_Click(object sender, EventArgs e) {
@@ -128,15 +123,15 @@ namespace SvgDocTest {
             Assert.Equals(f[1].Abs, true);
             Assert.Equals(f[2].Data[3], 10f);
 
-            MessageBox.Show("Tests completed Ok");
+            _ = MessageBox.Show("Tests completed Ok");
         }
         private void ProcessSvgFile(string svgFileName) {
+            panelTop.Text = $"Input: {svgFileName}";
             tbIn.Text = svgFileName.LoadText();
-            RefreshBrowserFrom(svgIn, svgFileName);
             tbOut.Text = SvgFactory.LoadFromXML(svgFileName.LoadXml(), null).WriteSVGString(true);
             File.WriteAllText(_tempFileName, tbOut.Text);
-            RefreshBrowserFrom(svgOut, _tempFileName);
+            svgIn.RefreshFrom(svgFileName);
+            svgOut.RefreshFrom(_tempFileName);
         }
-
     }
 }
